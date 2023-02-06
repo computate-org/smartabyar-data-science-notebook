@@ -20,16 +20,3 @@ USER root
 
 RUN rpm -ivh https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
 RUN rpm -ivh https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-8.noarch.rpm
-
-RUN yum install -y ${APP_DEPENDENCIES}
-
-RUN /usr/bin/virtualenv ${PYTHON_DIR}
-RUN source ${PYTHON_DIR}/bin/activate && pip install setuptools_rust wheel
-RUN source ${PYTHON_DIR}/bin/activate && pip install --upgrade pip
-RUN source ${PYTHON_DIR}/bin/activate && pip install ansible sumolib pyproj
-RUN git clone https://github.com/computate-org/computate_sumo.git /opt/app-root/src/.ansible/roles/computate.computate_sumo
-RUN git clone https://github.com/computate-org/computate_sqlite.git /opt/app-root/src/.ansible/roles/computate.computate_sqlite
-RUN git clone https://github.com/computate-org/computate_fox.git /opt/app-root/src/.ansible/roles/computate.computate_fox
-RUN git clone https://github.com/computate-org/computate_gtest.git /opt/app-root/src/.ansible/roles/computate.computate_gtest
-RUN git clone https://github.com/computate-org/computate_eigen.git /opt/app-root/src/.ansible/roles/computate.computate_eigen
-RUN git clone https://github.com/computate-org/computate_gdal.git /opt/app-root/src/.ansible/roles/computate.computate_gdal
