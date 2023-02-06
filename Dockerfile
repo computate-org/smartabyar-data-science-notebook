@@ -1,4 +1,4 @@
-FROM quay.io/thoth-station/s2i-generic-data-science-notebook:latest
+FROM quay.io/centos/centos:stream8
 
 MAINTAINER Christopher Tate <computate@computate.org>
 
@@ -34,3 +34,5 @@ RUN git clone https://github.com/computate-org/computate_gtest.git /opt/app-root
 RUN git clone https://github.com/computate-org/computate_eigen.git /opt/app-root/src/.ansible/roles/computate.computate_eigen
 RUN git clone https://github.com/computate-org/computate_gdal.git /opt/app-root/src/.ansible/roles/computate.computate_gdal
 RUN source ${PYTHON_DIR}/bin/activate && ${PYTHON_DIR}/bin/ansible-playbook -e  APP_PREFIX=/usr/local -e APP_DOWNLOAD_DIR=/tmp /opt/app-root/src/.ansible/roles/computate.computate_sumo/install.yml
+
+FROM quay.io/thoth-station/s2i-generic-data-science-notebook:latest
