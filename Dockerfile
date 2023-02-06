@@ -3,9 +3,8 @@ FROM quay.io/thoth-station/s2i-generic-data-science-notebook:latest
 MAINTAINER Christopher Tate <computate@computate.org>
 
 ENV APP_NAME=sumo \
-	APP_DEPENDENCIES="rsync git python3 python3-pip python3-virtualenv make gcc gcc-c++ tcl zlib-devel libpng-devel libjpeg-turbo-devel libtiff-devel cmake xerces-c-devel proj-devel gl2ps-devel swig java-11-openjdk-devel maven libsq3-devel libsqlite3x-devel" \
-	#APP_DEPENDENCIES_2="rsync git python3 python3-pip python3-virtualenv make gcc gcc-c++ readline-devel tcl zlib-devel libpng-devel libjpeg-turbo-devel libtiff-devel libXext-devel libXft-devel mesa-libGLw mesa-libGL-devel mesa-libGLU-devel cmake xerces-c-devel proj-devel gl2ps-devel swig java-11-openjdk-devel maven libsq3-devel libsqlite3x-devel" \
-	# gtest-devel gdal-devel ffmpeg-devel
+	APP_DEPENDENCIES="rsync git python3 python3-pip python3-virtualenv make gcc gcc-c++ tcl zlib-devel libpng-devel libjpeg-turbo-devel libtiff-devel cmake xerces-c-devel proj-devel swig java-11-openjdk-devel maven libsq3-devel libsqlite3x-devel" \
+	# gtest-devel gdal-devel ffmpeg-devel gl2ps-devel 
 	APP_DISPLAY_NAME="SUMO Simulation of Urban Mobility Data Science Notebook" \
 	APP_PREFIX="/usr/local" \
 	APP_SRC="/usr/local/src/sumo" \
