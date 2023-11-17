@@ -3,8 +3,7 @@ FROM quay.io/thoth-station/s2i-generic-data-science-notebook:latest
 MAINTAINER Christopher Tate <computate@computate.org>
 
 ENV APP_NAME=sumo \
-	APP_DEPENDENCIES="rsync git python3 python3-pip python3-virtualenv make gcc gcc-c++ tcl zlib-devel libpng-devel libjpeg-turbo-devel libtiff-devel cmake xerces-c-devel proj-devel swig java-11-openjdk-devel maven libsq3-devel libsqlite3x-devel" \
-	# gtest-devel gdal-devel ffmpeg-devel gl2ps-devel 
+	APP_DEPENDENCIES="rsync git python3 python3-pip make gcc gcc-c++ tcl zlib-devel libpng-devel libjpeg-turbo-devel libtiff-devel cmake xerces-c-devel proj-devel swig libsq3-devel libsqlite3x-devel" \
 	APP_DISPLAY_NAME="SUMO Simulation of Urban Mobility Data Science Notebook" \
 	APP_PREFIX="/usr/local" \
 	APP_SRC="/usr/local/src/sumo" \
@@ -23,10 +22,8 @@ RUN rpm -ivh https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-8.noar
 
 RUN yum install -y ${APP_DEPENDENCIES}
 
-RUN /usr/bin/virtualenv ${PYTHON_DIR}
-RUN source ${PYTHON_DIR}/bin/activate && pip install setuptools_rust wheel
-RUN source ${PYTHON_DIR}/bin/activate && pip install --upgrade pip
-RUN source ${PYTHON_DIR}/bin/activate && pip install ansible sumolib pyproj
+RUN pip install ansible sumolib pyproj
 RUN git clone https://github.com/computate-org/computate_sumo.git /opt/app-root/src/.ansible/roles/computate.computate_sumo
-RUN source ${PYTHON_DIR}/bin/activate && ${PYTHON_DIR}/bin/ansible-playbook -e  APP_PREFIX=/usr/local -e APP_DOWNLOAD_DIR=/tmp /opt/app-root/src/.ansible/roles/computate.computate_sumo/install.yml
+RUN ansible-playbook -e  APP_PREFIX=/usr/local -e APP_DOWNLOAD_DIR=/tmp /opt/app-root/src/.ansible/roles/computate.computate_sumo/install.yml
 RUN rm -rf /usr/local/src/sumo
+RUN rm -rf /opt/app-root/src/.ansible
